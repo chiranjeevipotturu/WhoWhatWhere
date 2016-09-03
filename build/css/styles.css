@@ -1,0 +1,93 @@
+body{
+	background-color: #EEE;
+}
+.logo-who{
+	color: #940000;
+	 margin: -14px 0 0;
+    line-height: 100px;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: normal;
+    font-size: 60px;
+    text-shadow: 0px 2px 2px #cbcbcb;
+}
+.logo-what{
+	color: #000000;
+	 margin: -14px 0 0;
+    line-height: 70px;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: normal;
+    font-size: 60px;
+    text-shadow: 0px 2px 2px #cbcbcb;
+}
+ .form-control {
+    width: 200px; 
+    margin-top: 40px;
+ 
+}
+.grid{
+ 	background-color: #FFFFFF;
+ 
+    border: 1px solid #D2D6D5;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all .25s;
+    transition: all .25s;
+    margin: 5px;
+    height: 120px;
+ 
+
+	-webkit-box-shadow: 0 5px 15px rgba(0,0,0,.5);
+    -moz-box-shadow: 0 5px 15px rgba(0,0,0,.5);
+    -ms-box-shadow: 0 5px 15px rgba(0,0,0,.5);
+    -o-box-shadow: 0 5px 15px rgba(0,0,0,.5);
+    box-shadow: 0 5px 15px rgba(0,0,0,.5);
+    background-color: #fff;
+ 
+
+}
+
+
+.header-con{
+
+	height: 100px;
+}
+.menus{
+
+	background-color: #1ee0a8;
+}
+
+	
+.item-detail{
+	border-bottom: 1px solid #00ffff;
+	background-color: #00ff0d;
+ 
+}
+.right-div{
+	height: 100px;
+}
+
+.item-image{
+	margin: -30px 10px 10px 10px;
+}
+.item-name{
+	margin: 0px 10px 10px 120px;
+	padding-top: 10px;
+}
+
+.item-styles{
+    font-weight: bold;
+    color: #940000;
+}
+
+.col-md-6{
+	padding: 0;
+}
+a{
+	color: white;
+	font-size: 16px;
+}
+
+.grid{
+    cursor: pointer;
+}

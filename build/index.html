@@ -1,5 +1,78 @@
-<html>
-<body>
-chiru
+<!DOCTYPE html>
+<html ng-app="myApp" lang="en" >
+<head>
+    <title>3w</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWFyrs3lwnz_Udbl8dsDnLcW17xYB3594"
+            ></script>
+    <script src="js/lib/angular.min.js"></script>
+    <script src="js/controller.js"></script>
+
+    <!-- Theme CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+
+</head>
+<body ng-controller="myController">
+<div id="map"></div>
+<!-- Header -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 header-con">
+            <span class="logo-who">Who</span>
+            <span class="logo-what">What</span>
+            <span class="logo-who">Where</span>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 header-con">
+            <select class="form-control"
+                    name="repeatSelect"
+                    id="repeatSelect"
+                    ng-model="data.model"
+                    ng-change="update()">
+                <option ng-repeat="option in data.availableOptions"
+                        ng-selected="{{ $index == 0 }}"
+                        ngvalue="{{option.name}}">{{option.name}}</option>
+            </select>
+        </div>
+
+        <!-- Menus -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 menus">
+                    <ul class="nav navbar-nav navbar-center" id="cats">
+                        <li ng-repeat="menu in menuNames | filter:name" id="{{menu}}">
+                            <a href="#/{{menu.name}}">{{menu.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6  right-div" style="height: 800px; overflow-y: scroll;">
+                    <div ng-click="gotoBusiness(item.url)" class="grid" ng-repeat="item in fetchData" class="item-detail" id="{{ item.id }}" ng-mouseover="gotoMarker($event)">
+                        <div class="item-name item-styles">{{item.name}}</div>
+                        <div class="pull-left "><img class="img-rounded item-image" ng-src="{{item.image}}"/></div>
+                        <div class="item-styles">{{item.phone}}</div>
+                        <div class="item-styles">{{item.address}}</div>
+                        <div class="item-styles">{{item.rating}}</div>
+                    </div>
+                </div>
+                <div class="col-md-6 right-div">
+                    <div id="map" style="width: 100%; height: 800px;"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
 </body>
 </html>
+<!--
+AIzaSyBWFyrs3lwnz_Udbl8dsDnLcW17xYB3594-->
