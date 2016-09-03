@@ -1,0 +1,31 @@
+{
+  "name": "whowhatwhere",
+  "version": "1.0.0",
+  "description": "business application",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chiranjeevipotturu/WhoWhatWhere.git"
+  },
+  "keywords": [
+    "business"
+  ],
+  "author": "chiranjeevi potturu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chiranjeevipotturu/WhoWhatWhere/issues"
+  },
+  "homepage": "https://github.com/chiranjeevipotturu/WhoWhatWhere#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "dodge": "^0.6.2",
+    "express": "^4.14.0",
+    "lodash": "^4.15.0",
+    "opener": "^1.4.1",
+    "serve-static": "^1.11.1",
+    "yelp": "^1.0.1"
+  }
+}
