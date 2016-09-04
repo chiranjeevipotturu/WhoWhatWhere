@@ -6,10 +6,11 @@ module.exports = function (data) {
 	var parsed = [];
 	for (var ite of data.businesses) {
 		var entry = {};
+		console.log(ite, data.businesses[0], 'yelp');
 		if (ite.name) {
 			entry.name = ite.name;
 		} else {
-			//we dont need a business without a name
+			//we don't need a business without a name
 			continue;
 		}
 
@@ -35,7 +36,7 @@ module.exports = function (data) {
 			ite.location.coordinate.longitude !== undefined) {
 			entry.cords = {lat: ite.location.coordinate.latitude, lon: ite.location.coordinate.longitude};
 		} else {
-			//we dont need a business without coordinates
+			//we don't need a business without coordinates
 			continue;
 		}
 

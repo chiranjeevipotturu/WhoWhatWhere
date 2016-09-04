@@ -111,7 +111,7 @@ function getData(term, location, isCoordinates, callBack) {
 }
 
 app.post('/getdata', function (req, res) {
-	var query         = req.body.query,
+	var query         = req.body,
 	    location      = req.body.location,
 	    isCoordinates = req.body.isCoordinates;
 	if (query && location) {
