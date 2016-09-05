@@ -4,15 +4,15 @@
     <title>3w</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
+    <script src="js/lib/jquery.js"></script>
     <script src="js/lib/angular.min.js"></script>
     <script src="js/lib/angular-route.min.js"></script>
     <script src="js/controller/controller.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWFyrs3lwnz_Udbl8dsDnLcW17xYB3594&callback=onMapCallback" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWFyrs3lwnz_Udbl8dsDnLcW17xYB3594"></script>
 
     <!-- Theme CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
-
 
 </head>
 
@@ -21,29 +21,38 @@
 <!-- Header -->
 <div class="container">
     <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 header-con">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 header-con pull-left">
             <span class="logo-who">Who</span>
             <span class="logo-what">What</span>
             <span class="logo-who">Where</span>
         </div>
 
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 header-con">
-            <input class="search-for"
-                    name="repeatSelect"
-                    id="repeatSelect"
-                    ng-model="query"
-                    placeholder="Looking for !">
-            </input>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right">
 
-            <input class="search-for"
-                   name="repeatSelect"
-                   ng-model="location"
-                   placeholder="Location">
-            </input>
+                <div>
+                    <input class="search-for"
+                           ng-model="query"
+                           placeholder="Looking for !">
+                    </input>
+                </div>
 
-            <button class="button-style" ng-click="onSearch()"></button>
+                <div class="search-icons">
+                    <input class="search-for"
+                           ng-model="location"
+                           placeholder="Location">
+                    </input>
+                </div>
+
+                <div class="button-place" >
+                    <button class="button-style" ng-click="onSearch()">
+                        <span class="go-logo">Go</span>
+                    </button>
+                </div>
+
+            </div>
         </div>
-
+    </div>
         <!-- Menus -->
         <div class="container">
             <div class="row">
@@ -56,11 +65,8 @@
                 </div>
             </div>
         </div>
-
-    </div>
     <ng-view></ng-view>
 </div>
-
 </body>
 </html>
 <!--

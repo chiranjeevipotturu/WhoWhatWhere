@@ -20,11 +20,11 @@ app.controller('myController',function($scope, $http, $window){
     $scope.menuNames = [{name: "Top Pics"}, {name: "Food"}, {name: "Coffee"}, {name: "Shopping"}];
 
     function onPositionUpdate(position) {
-        if(mapData){
+        //if(mapData){
             getCurrentCity(position.coords.latitude, position.coords.longitude);
-        }else{
-            mapData = position.coords;
-        }
+        //}else{
+        //    mapData = position.coords;
+        //}
     }
 
     function getCurrentCity(latitude, longitude){
@@ -53,13 +53,13 @@ app.controller('myController',function($scope, $http, $window){
         );
     }
 
-    window.onMapCallback = function(){
-        if(mapData){
-            getCurrentCity(mapData.latitude, mapData.longitude);
-        }else{
-            mapData = true;
-        }
-    };
+    //window.onMapCallback = function(){
+    //    if(mapData){
+    //        getCurrentCity(mapData.latitude, mapData.longitude);
+    //    }else{
+    //        mapData = true;
+    //    }
+    //};
 
     navigator.geolocation.getCurrentPosition(onPositionUpdate,
         function(){
@@ -80,6 +80,38 @@ app.controller('myController',function($scope, $http, $window){
         });
     }
 
+    function scrollElement(number){
+        $('.right-div').animate({
+            scrollTop: $('.right-div .element-'+number).offset().top - 250
+        }, 2000);
+    }
+
+    function addMarker(feature) {
+        var marker = new google.maps.Marker({
+            position: feature.position,
+            map     : map
+        });
+
+        var infowindow = new google.maps.InfoWindow({
+            content: feature.title
+        });
+
+        marker.addListener('mouseover', function () {
+            infowindow.open(map, marker);
+        });
+
+        marker.addListener('mouseout', function () {
+            infowindow.close();
+        });
+
+        marker.addListener('click', function (event) {
+            console.log(feature.number);
+            scrollElement(feature.number);
+        });
+
+        return marker;
+    }
+
     function loadGoogleMarkers(){
         var locations = $scope.fetchData;
 
@@ -91,28 +123,16 @@ app.controller('myController',function($scope, $http, $window){
         var i;
 
         for (i = 0; i < locations.length; i++) {
-            var coords = locations[i].cords;
+            var current = locations[i];
 
-            var marker = new google.maps.Marker({
-                id: locations[i].id,
-                position: new google.maps.LatLng(coords.lat, coords.lon),
-                map: map
-            });
+            var _marker = {
+                position: new google.maps.LatLng(current.cords.lat, current.cords.lon),
+                title   : current.name,
+                number : i,
+                data    : current
+            };
 
-            console.log(locations[i].title);
-            var infowindow = new google.maps.InfoWindow({
-                content: locations[i].name
-            });
-
-            marker.addListener('mouseover', function () {
-                infowindow.open(map, marker);
-            });
-
-            marker.addListener('mouseout', function () {
-                infowindow.close();
-            });
-
-            markers.push(marker);
+            markers.push(addMarker(_marker));
         }
     }
 
@@ -120,7 +140,8 @@ app.controller('myController',function($scope, $http, $window){
         if(url === 'NA'){
             //no url
         }else{
-        $window.open(url, '_blank');}
+            $window.open(url, '_blank');
+        }
     };
 
     function getData(input){
@@ -134,7 +155,7 @@ app.controller('myController',function($scope, $http, $window){
                 for (var i = 0; i < businessData.length; i++) {
                     $scope.fetchData.push(
                         {
-                            id:businessData[i].id,
+                            class : "element-"+i,
                             name: businessData[i].name,
                             title: businessData[i].title,
                             phone: businessData[i].phone,
@@ -155,8 +176,8 @@ app.controller('myController',function($scope, $http, $window){
         });
     }
 
-
     $scope.onSearch = function(){
+        $scope.fetchData = [];
         if($scope.location.toString().trim().length > 0) {
             getData({query: $scope.query, location: $scope.location});
         }else{

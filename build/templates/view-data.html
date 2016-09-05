@@ -1,20 +1,17 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-6  right-div" style="height: 800px; overflow-y: scroll;">
-			<div class="grid"
-				 ng-repeat="item in fetchData"
-				 class="item-detail"
-				 id="{{item.id}}"
-				 ng-mouseover="goToMarker($event)"
+			<div ng-repeat="item in fetchData"
+				 class="grid item-detail {{item.class}}"
 				 ng-click="goToBusiness(item.url)">
 				<div class="item-name item-styles">{{$index + 1}}. {{item.name}}</div>
 				<div class="pull-left ">
 					<img class="img-rounded item-image"
 						 ng-src="{{item.image}}" alt="No image available"
 						 style="width:100px; height: 100px"/></div>
-				<div class="item-styles">{{item.phone}}</div>
-				<div class="item-styles">{{item.address}}</div>
-				<div class="item-styles">{{item.rating}}</div>
+				<div class="">{{item.phone}}</div>
+				<div class="">{{item.address}}</div>
+				<div class="">{{item.rating}}</div>
 			</div>
 		</div>
 		<div class="col-md-6 right-div">
