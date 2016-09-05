@@ -12,20 +12,131 @@ app.config(['$routeProvider', function ($routeProvider) {
         })
 }]);
 
-app.controller('myController',function($scope,$http,$window){
+app.controller('myController',function($scope, $http, $window){
     var markers = [];
+    var map;
+    var mapData;
     $scope.fetchData = [];
+    $scope.menuNames = [{name: "Top Pics"}, {name: "Food"}, {name: "Coffee"}, {name: "Shopping"}];
+
+    function onPositionUpdate(position) {
+        if(mapData){
+            getCurrentCity(position.coords.latitude, position.coords.longitude);
+        }else{
+            mapData = position.coords;
+        }
+    }
+
+    function getCurrentCity(latitude, longitude){
+        var latlng = new google.maps.LatLng(latitude, longitude);
+
+        new google.maps.Geocoder().geocode(
+            {'latLng': latlng},
+            function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+                        var value= results[0].formatted_address.split(",");
+                        var count=value.length;
+                        var city=value[count-3];
+                        $scope.$apply(function () {
+                            $scope.location = city;
+                        });
+                    }
+                    else  {
+                        console.log("address not found");
+                    }
+                }
+                else {
+                    console.log("Geocoder failed due to: " + status);
+                }
+            }
+        );
+    }
+
+    window.onMapCallback = function(){
+        if(mapData){
+            getCurrentCity(mapData.latitude, mapData.longitude);
+        }else{
+            mapData = true;
+        }
+    };
+
+    navigator.geolocation.getCurrentPosition(onPositionUpdate,
+        function(){
+            $scope.location = 'Pune';
+        },
+        {enableHighAccuracy: true, timeout: 5000, maximumAge: 600000});
 
     $scope.upData = function(event) {
         $scope.fetchData = [];
-        $http.post('/getdata', {query: event, location: "new york"}).then(function (resp) {
+        $scope.query = event;
+         getData({query: event, location: $scope.location});
+    };
+
+    function loadMap(cords) {
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom  : 16,
+            center: new google.maps.LatLng(cords.lat, cords.lon)
+        });
+    }
+
+    function loadGoogleMarkers(){
+        var locations = $scope.fetchData;
+
+        loadMap(locations[0].cords);
+
+        var infowindow = new google.maps.InfoWindow();
+        var bounds = new google.maps.LatLngBounds();
+
+        var i;
+
+        for (i = 0; i < locations.length; i++) {
+            var coords = locations[i].cords;
+
+            var marker = new google.maps.Marker({
+                id: locations[i].id,
+                position: new google.maps.LatLng(coords.lat, coords.lon),
+                map: map
+            });
+
+            console.log(locations[i].title);
+            var infowindow = new google.maps.InfoWindow({
+                content: locations[i].name
+            });
+
+            marker.addListener('mouseover', function () {
+                infowindow.open(map, marker);
+            });
+
+            marker.addListener('mouseout', function () {
+                infowindow.close();
+            });
+
+            markers.push(marker);
+        }
+    }
+
+    $scope.goToBusiness = function (url) {
+        if(url === 'NA'){
+            //no url
+        }else{
+        $window.open(url, '_blank');}
+    };
+
+    function getData(input){
+        $http.post('/getdata',input).then(function (resp) {
             if (resp.data instanceof Array && resp.data.length > 0) {
-                console.log(resp.data);
                 var businessData = resp.data;
+                console.log(resp.data);
+                setMapOnAll();
+                markers.length = 0;
+                $scope.fetchData = [];
                 for (var i = 0; i < businessData.length; i++) {
                     $scope.fetchData.push(
                         {
+                            id:businessData[i].id,
                             name: businessData[i].name,
+                            title: businessData[i].title,
                             phone: businessData[i].phone,
                             rating: businessData[i].rating,
                             image: businessData[i].photo,
@@ -43,78 +154,20 @@ app.controller('myController',function($scope,$http,$window){
             console.error(error);
         });
     }
-    console.log('data.....',$scope.fetchData);
-    function loadGoogleMarkers(){
-        var locations = $scope.fetchData;
-        console.log('locations', locations);
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 10,
-            center: new google.maps.LatLng(-33.92, 151.25),
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        });
 
-        var infowindow = new google.maps.InfoWindow();
-        var bounds = new google.maps.LatLngBounds();
 
-        var marker, i;
-
-        for (i = 0; i < locations.length; i++) {
-            var coords = locations[i].cords;
-
-            marker = new google.maps.Marker({
-                id: locations[i].id,
-                position: new google.maps.LatLng(coords.lat, coords.lon),
-                map: map
-            });
-
-            markers.push(marker);
-
-            bounds.extend(marker.position);
-
-            google.maps.event.addListener(marker, 'click', (function (marker, i) {
-                console.log('am in google maps')
-                return function () {
-                    infowindow.setContent(locations[i].name);
-                    infowindow.open(map, marker);
-                    angular.element('.grid').css('background-color', '');
-                    angular.element('#' + marker.id).css('background-color', "#ccc");
-
-                    angular.element('.right-div').animate({
-                        scrollTop: angular.element('#' + marker.id).offset().top - 150
-                    }, 2000);
-                }
-            })(marker, i));
+    $scope.onSearch = function(){
+        if($scope.location.toString().trim().length > 0) {
+            getData({query: $scope.query, location: $scope.location});
+        }else{
+            alert('please enter a location');
         }
+    };
 
-        map.fitBounds(bounds);
+    function setMapOnAll() {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+        }
     }
-    console.log('menunames');
-    $scope.menuNames = [{name: "Top Pics"}, {name: "Food"}, {name: "Coffee"}, {name: "Shopping"}];
-
-    $scope.data = {
-
-        model: null,
-        availableOptions: [
-            {id: '0', name: 'Search item'},
-            {id: '1', name: 'Top Pics'},
-            {id: '2', name: 'Food'},
-            {id: '3', name: 'Coffee'},
-            {id: '4', name: 'Shopping'}
-        ]
-    };
-
-    $scope.goToBusiness = function (url) {
-        console.log('item', url);
-        $window.open(url, '_blank');
-    };
-    /*$scope.update = function() {
-        if($scope.data.model != "Search item"){
-            $location.path('/'+ $scope.data.model);
-        }
-
-        console.log($scope.data.model)
-        // use $scope.selectedItem.code and $scope.selectedItem.name here
-        // for other stuff ...
-    }*/
 });
 

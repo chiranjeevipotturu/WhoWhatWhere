@@ -6,25 +6,42 @@
     <meta charset="utf-8">
     <script src="js/lib/angular.min.js"></script>
     <script src="js/lib/angular-route.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWFyrs3lwnz_Udbl8dsDnLcW17xYB3594"
-            ></script>
+    <script src="js/controller/controller.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWFyrs3lwnz_Udbl8dsDnLcW17xYB3594&callback=onMapCallback" async defer></script>
 
     <!-- Theme CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
 
-    <script src="js/controller/controller.js"></script>
 
 </head>
+
 <body ng-controller="myController">
 
 <!-- Header -->
 <div class="container">
     <div class="row">
-        <div class="col-md-6 header-con">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 header-con">
             <span class="logo-who">Who</span>
             <span class="logo-what">What</span>
             <span class="logo-who">Where</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 header-con">
+            <input class="search-for"
+                    name="repeatSelect"
+                    id="repeatSelect"
+                    ng-model="query"
+                    placeholder="Looking for !">
+            </input>
+
+            <input class="search-for"
+                   name="repeatSelect"
+                   ng-model="location"
+                   placeholder="Location">
+            </input>
+
+            <button class="button-style" ng-click="onSearch()"></button>
         </div>
 
         <!-- Menus -->

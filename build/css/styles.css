@@ -3,7 +3,7 @@ body{
 }
 .logo-who{
 	color: #940000;
-	 margin: -14px 0 0;
+    margin: -14px 0 0;
     line-height: 100px;
     font-family: 'Ubuntu', sans-serif;
     font-weight: normal;
@@ -12,21 +12,22 @@ body{
 }
 .logo-what{
 	color: #000000;
-	 margin: -14px 0 0;
+    margin: -14px 0 0;
     line-height: 70px;
     font-family: 'Ubuntu', sans-serif;
     font-weight: normal;
     font-size: 60px;
     text-shadow: 0px 2px 2px #cbcbcb;
 }
- .form-control {
-    width: 200px; 
-    margin-top: 40px;
- 
-}
+ .search-for{
+     width: 180px;
+     height: 40px;
+     border-radius: 10px;
+     margin-top: 30px;
+ }
+
 .grid{
  	background-color: #FFFFFF;
- 
     border: 1px solid #D2D6D5;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -35,29 +36,23 @@ body{
     transition: all .25s;
     margin: 5px;
     height: 120px;
- 
-
 	-webkit-box-shadow: 0 5px 15px rgba(0,0,0,.5);
     -moz-box-shadow: 0 5px 15px rgba(0,0,0,.5);
     -ms-box-shadow: 0 5px 15px rgba(0,0,0,.5);
     -o-box-shadow: 0 5px 15px rgba(0,0,0,.5);
     box-shadow: 0 5px 15px rgba(0,0,0,.5);
     background-color: #fff;
- 
-
 }
-
 
 .header-con{
-
-	height: 100px;
+	height: 120px;
 }
+
 .menus{
-
 	background-color: #1ee0a8;
+    border-radius: 5px;
 }
 
-	
 .item-detail{
 	border-bottom: 1px solid #00ffff;
 	background-color: #00ff0d;
@@ -83,6 +78,7 @@ body{
 .col-md-6{
 	padding: 0;
 }
+
 a{
 	color: white;
 	font-size: 16px;
@@ -90,4 +86,16 @@ a{
 
 .grid{
     cursor: pointer;
+}
+
+.row {
+    margin-right: -15px;
+    margin-left: 0px;
+}
+.button-style{
+    height: 35px;
+    width: 45px;
+    border: solid 1px #1ee0a8;
+    border-radius: 5px;
+    margin-left: 16px;
 }

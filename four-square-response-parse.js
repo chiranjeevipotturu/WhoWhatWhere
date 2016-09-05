@@ -57,9 +57,11 @@ module.exports = function (data) {
 			entry.phone = 'NA';
 		}
 
-
-		entry.photo = 'http://www.megaicons.net/static/img/icons_sizes/8/60/256/science-business-icon.png';
-
+		if (ite.snippet_image_url) {
+			entry.photo = ite.image_url;
+		} else {
+			entry.photo = 'http://www.megaicons.net/static/img/icons_sizes/8/60/256/science-business-icon.png';
+		}
 
 		if (ite.url) {
 			entry.url = ite.url;
