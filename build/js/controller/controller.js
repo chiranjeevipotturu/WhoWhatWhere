@@ -7,12 +7,12 @@ app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
         .when('/', {
             templateUrl:'templates/default-view.html'
-        }).when('/:menuName', {
+        }).when('/:query', {
             templateUrl:'templates/view-data.html'
         })
 }]);
 
-app.controller('myController',function($scope, $http, $window){
+app.controller('myController',function($scope, $http, $window, $location){
     var markers = [];
     var map;
     var mapData;
@@ -28,16 +28,16 @@ app.controller('myController',function($scope, $http, $window){
     }
 
     function getCurrentCity(latitude, longitude){
-        var latlng = new google.maps.LatLng(latitude, longitude);
+        var latLng = new google.maps.LatLng(latitude, longitude);
 
         new google.maps.Geocoder().geocode(
-            {'latLng': latlng},
+            {'latLng': latLng},
             function(results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     if (results[0]) {
-                        var value= results[0].formatted_address.split(",");
-                        var count=value.length;
-                        var city=value[count-3];
+                        var value = results[0].formatted_address.split(",");
+                        var count = value.length;
+                        var city = value[count-3];
                         $scope.$apply(function () {
                             $scope.location = city;
                         });
@@ -81,8 +81,10 @@ app.controller('myController',function($scope, $http, $window){
     }
 
     function scrollElement(number){
-        $('.right-div').animate({
-            scrollTop: $('.right-div .element-'+number).offset().top - 250
+        angular.element('.grid').css('background-color', '');
+        angular.element('.right-div .element-'+number).css('background-color', "#ccc");
+        angular.element('.right-div').animate({
+            scrollTop: angular.element('.right-div .element-'+number).offset().top - 250
         }, 2000);
     }
 
@@ -105,7 +107,6 @@ app.controller('myController',function($scope, $http, $window){
         });
 
         marker.addListener('click', function (event) {
-            console.log(feature.number);
             scrollElement(feature.number);
         });
 
@@ -117,12 +118,7 @@ app.controller('myController',function($scope, $http, $window){
 
         loadMap(locations[0].cords);
 
-        var infowindow = new google.maps.InfoWindow();
-        var bounds = new google.maps.LatLngBounds();
-
-        var i;
-
-        for (i = 0; i < locations.length; i++) {
+        for (var i = 0; i < locations.length; i++) {
             var current = locations[i];
 
             var _marker = {
@@ -131,7 +127,6 @@ app.controller('myController',function($scope, $http, $window){
                 number : i,
                 data    : current
             };
-
             markers.push(addMarker(_marker));
         }
     }
@@ -148,7 +143,7 @@ app.controller('myController',function($scope, $http, $window){
         $http.post('/getdata',input).then(function (resp) {
             if (resp.data instanceof Array && resp.data.length > 0) {
                 var businessData = resp.data;
-                console.log(resp.data);
+                console.log(businessData);
                 setMapOnAll();
                 markers.length = 0;
                 $scope.fetchData = [];
@@ -179,6 +174,11 @@ app.controller('myController',function($scope, $http, $window){
     $scope.onSearch = function(){
         $scope.fetchData = [];
         if($scope.location.toString().trim().length > 0) {
+            if(angular.isUndefined($scope.query)){
+                $location.path('/'+$scope.query);
+            }else{
+                $location.path('/'+$scope.location);
+            }
             getData({query: $scope.query, location: $scope.location});
         }else{
             alert('please enter a location');
