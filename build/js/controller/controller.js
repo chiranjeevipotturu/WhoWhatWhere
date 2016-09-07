@@ -12,6 +12,7 @@ app.config(['$routeProvider', function ($routeProvider) {
         })
 }]);
 
+//App main controller
 app.controller('myController',function($scope, $http, $window, $location){
     var markers = [];
     var map;
@@ -19,14 +20,12 @@ app.controller('myController',function($scope, $http, $window, $location){
     $scope.fetchData = [];
     $scope.menuNames = [{name: "Top Pics"}, {name: "Food"}, {name: "Coffee"}, {name: "Shopping"}];
 
+    //Default location co-ordinates
     function onPositionUpdate(position) {
-        //if(mapData){
-            getCurrentCity(position.coords.latitude, position.coords.longitude);
-        //}else{
-        //    mapData = position.coords;
-        //}
+        getCurrentCity(position.coords.latitude, position.coords.longitude);
     }
 
+    //Get  the current location and its address
     function getCurrentCity(latitude, longitude){
         var latLng = new google.maps.LatLng(latitude, longitude);
 
@@ -53,24 +52,18 @@ app.controller('myController',function($scope, $http, $window, $location){
         );
     }
 
-    //window.onMapCallback = function(){
-    //    if(mapData){
-    //        getCurrentCity(mapData.latitude, mapData.longitude);
-    //    }else{
-    //        mapData = true;
-    //    }
-    //};
-
+    //Passing current location name
     navigator.geolocation.getCurrentPosition(onPositionUpdate,
         function(){
             $scope.location = 'Pune';
         },
         {enableHighAccuracy: true, timeout: 5000, maximumAge: 600000});
 
+
     $scope.upData = function(event) {
         $scope.fetchData = [];
         $scope.query = event;
-         getData({query: event, location: $scope.location});
+        getData({query: event, location: $scope.location});
     };
 
     function loadMap(cords) {
@@ -80,6 +73,7 @@ app.controller('myController',function($scope, $http, $window, $location){
         });
     }
 
+    //While click the google mark respected element highlighted
     function scrollElement(number){
         angular.element('.grid').css('background-color', '');
         angular.element('.right-div .element-'+number).css('background-color', "#ccc");
@@ -139,11 +133,15 @@ app.controller('myController',function($scope, $http, $window, $location){
         }
     };
 
+    /**
+     * Steps :
+     * - Fetching data from the sever
+     * - showing the google marks which is available
+     */
     function getData(input){
         $http.post('/getdata',input).then(function (resp) {
             if (resp.data instanceof Array && resp.data.length > 0) {
                 var businessData = resp.data;
-                console.log(businessData);
                 setMapOnAll();
                 markers.length = 0;
                 $scope.fetchData = [];
@@ -171,6 +169,11 @@ app.controller('myController',function($scope, $http, $window, $location){
         });
     }
 
+    /**
+     * onSearch method to handle the following requirements
+     * - search any location and food,coffee shops...etc
+     * -
+     */
     $scope.onSearch = function(){
         $scope.fetchData = [];
         if($scope.location.toString().trim().length > 0) {
@@ -185,6 +188,8 @@ app.controller('myController',function($scope, $http, $window, $location){
         }
     };
 
+    //setMapOnAll function is used to cleanup the marks
+    // while search one location to another location
     function setMapOnAll() {
         for (var i = 0; i < markers.length; i++) {
             markers[i].setMap(null);
