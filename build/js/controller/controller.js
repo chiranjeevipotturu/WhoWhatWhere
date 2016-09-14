@@ -128,6 +128,7 @@ app.controller('myController',function($scope, $http, $window, $location){
     $scope.goToBusiness = function (url) {
         if(url === 'NA'){
             //no url
+			alert('Url not found');
         }else{
             $window.open(url, '_blank');
         }
