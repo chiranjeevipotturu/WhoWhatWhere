@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="myApp" lang="en" >
 <head>
-    <title>3w</title>
+    <title>WWW</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <script src="js/lib/jquery.js"></script>
@@ -20,43 +20,34 @@
 
 <!-- Header -->
 <div class="container">
+    <!--Main hedding-->
     <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 header-con pull-left">
+        <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5 pull-left">
             <span class="logo-who">Who</span>
             <span class="logo-what">What</span>
             <span class="logo-who">Where</span>
         </div>
-
-        <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right">
-
-                <div>
-                    <input class="search-for"
-                           ng-model="query"
-                           placeholder="Looking for !">
-                    </input>
+        <!--Searcing inputs and go button-->
+        <div class="pull-right col-xs-12 col-sm-6 col-md-5 col-lg-5">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
+                    <input class="search-for" ng-model="query" placeholder="Looking for..!"/>
                 </div>
 
-                <div class="search-icons">
-                    <input class="search-for"
-                           ng-model="location"
-                           placeholder="Location">
-                    </input>
+                <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
+                    <input class="search-for" ng-model="location" placeholder="Location"/>
                 </div>
 
-                <div class="button-place" >
-                    <button class="button-style" ng-click="onSearch()">
-                        <span class="go-logo">Go</span>
-                    </button>
+                <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 button-place" >
+                    <button class="button-style go-logo" ng-click="onSearch()">Go</button>
                 </div>
-
             </div>
         </div>
     </div>
         <!-- Menus -->
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 menus">
+                <div class="col-xs-12 col-lg-12 col-md-12 col-sm-12 menus">
                     <ul class="nav navbar-nav navbar-center" id="cats">
                         <li ng-repeat="menu in menuNames | filter:name" id="{{menu}}">
                             <a href="#/{{menu.name}}" ng-click="upData(menu.name)">{{menu.name}}</a>
@@ -69,5 +60,3 @@
 </div>
 </body>
 </html>
-<!--
-AIzaSyBWFyrs3lwnz_Udbl8dsDnLcW17xYB3594-->
