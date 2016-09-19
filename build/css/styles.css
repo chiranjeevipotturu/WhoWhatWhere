@@ -1,8 +1,8 @@
 body{
-	background-color: #EEE;
+     background-color: cornsilk;
 }
 .logo-who{
-	color: #940000;
+    color: #940000;
     margin: -14px 0 0;
     line-height: 100px;
     font-family: 'Ubuntu', sans-serif;
@@ -11,7 +11,7 @@ body{
     text-shadow: 0px 2px 2px #cbcbcb;
 }
 .logo-what{
-	color: #000000;
+    color: #000000;
     margin: -14px 0 0;
     line-height: 70px;
     font-family: 'Ubuntu', sans-serif;
@@ -29,7 +29,7 @@ body{
  }
 
 .grid{
- 	background-color: #FFFFFF;
+    background-color: #FFFFFF;
     border: 1px solid #D2D6D5;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -38,7 +38,7 @@ body{
     transition: all .25s;
     margin: 5px;
     height: 120px;
-	-webkit-box-shadow: 0 5px 15px rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 5px 15px rgba(0,0,0,.5);
     -moz-box-shadow: 0 5px 15px rgba(0,0,0,.5);
     -ms-box-shadow: 0 5px 15px rgba(0,0,0,.5);
     -o-box-shadow: 0 5px 15px rgba(0,0,0,.5);
@@ -47,23 +47,23 @@ body{
 }
 
 .menus{
-	background-color: #1ee0a8;
+    background-color: #1ee0a8;
     border-radius: 5px;
 }
 
 .item-detail{
-	border-bottom: 1px solid #00ffff;
+    border-bottom: 1px solid #00ffff;
 }
 .right-div{
-	height: 100px;
+    height: 100px;
 }
 
 .item-image{
-	margin: -30px 10px 10px 10px;
+    margin: -30px 10px 10px 10px;
 }
 .item-name{
-	margin: 0px 10px 10px 120px;
-	padding-top: 10px;
+    margin: 0px 10px 10px 120px;
+    padding-top: 10px;
 }
 
 .item-styles{
@@ -72,12 +72,12 @@ body{
 }
 
 .col-md-6{
-	padding: 0;
+    padding: 0;
 }
 
 a{
-	color: white;
-	font-size: 16px;
+    color: white;
+    font-size: 16px;
 }
 
 .grid{

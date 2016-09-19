@@ -78,7 +78,7 @@ app.controller('myController',function($scope, $http, $window, $location){
         angular.element('.grid').css('background-color', '');
         angular.element('.right-div .element-'+number).css('background-color', "#ccc");
         angular.element('.right-div').animate({
-            scrollTop: angular.element('.right-div .element-'+number).offset().top - 250
+            scrollTop: angular.element('.right-div .element-'+number).get(0).offsetTop
         }, 2000);
     }
 
@@ -128,7 +128,7 @@ app.controller('myController',function($scope, $http, $window, $location){
     $scope.goToBusiness = function (url) {
         if(url === 'NA'){
             //no url
-			alert('Url not found');
+            alert('Url not found');
         }else{
             $window.open(url, '_blank');
         }
@@ -197,4 +197,3 @@ app.controller('myController',function($scope, $http, $window, $location){
         }
     }
 });
-
